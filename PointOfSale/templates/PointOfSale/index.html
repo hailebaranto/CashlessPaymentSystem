@@ -1,0 +1,103 @@
+{% extends 'PointOfSale/base.html' %}
+
+{% block styles %}
+<style>
+    html {
+        box-sizing: content-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .container {
+        margin: 20px;
+    }
+
+    .system-info {
+        background-color: #f8f8f8;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
+
+    .system-info h2 {
+        margin-top: 0;
+    }
+
+    .system-info p {
+        margin-bottom: 10px;
+    }
+
+    .shop-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .shop-list li {
+        margin-bottom: 20px;
+    }
+
+    .shop-list li a {
+        display: block;
+        padding: 20px;
+        background-color: #f8f8f8;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .shop-list li a:hover {
+        background-color: #ff6b6b;
+        color: #fff;
+    }
+
+    .shop-list li a h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .shop-list li a p {
+        margin-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Welcome to the Cashless Shopping System</h1>
+    <h3>This system is designed to enable cashless transactions at various shops using IoT technology.</h3>
+</div>
+
+<div class="container">
+    <div class="system-info">
+        <h2>System Overview</h2>
+        <p>The Cashless Shopping System allows shop owners to register their shops by providing their unique MAC address and shared secret. End users can register with their RFID tags and other relevant information. The system records transaction history for each shop instance and end-user instance.</p>
+        <p>To make a purchase, end users visit a shop, collect the desired products, and bring them to the shop's gate. The shopkeeper enters the value of the products using a keypad interface and scans the RFID tag. The ESP32 device sends the RFID ID, price, MAC address of the ESP32, and the shared key of the user to the Django backend through a REST API. The backend validates the data, checks the user's balance, and processes the transaction if everything is valid. The necessary response is returned to the ESP32, and the transaction message is printed in the serial monitor.</p>
+    </div>
+
+    <h2>Registered Shops</h2>
+    <ul class="shop-list">
+        {% for shop in shops %}
+        <li>
+            <a href="{% url 'PointOfSale:shop_detail' shop.id %}">
+                <h3>{{ shop.name }}</h3>
+                <p>{{ shop.description }}</p>
+                <p><strong>Location:</strong> {{ shop.location }}</p>
+                <p><strong>Contact:</strong> {{ shop.contact }}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

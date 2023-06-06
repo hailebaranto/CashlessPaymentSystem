@@ -1,0 +1,14 @@
+<!-- shop_detail.html -->
+{% extends 'PointOfSale/base.html' %}
+
+{% block content %}
+<h1>Shop Details</h1>
+
+<p>Name: {{ shop.name }}</p>
+<p>Location: {{ shop.location }}</p>
+<!-- Add more fields as per your model -->
+
+<!-- Include links to edit or delete the shop -->
+<a href="{% url 'PointOfSale:shop_edit' shop.id %}">Edit</a>
+<a href="{% url 'PointOfSale:shop_delete' shop.id %}">Delete</a>
+{% endblock %}

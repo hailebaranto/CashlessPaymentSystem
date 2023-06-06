@@ -1,0 +1,14 @@
+<!-- enduser_detail.html -->
+{% extends 'PointOfSale/base.html' %}
+
+{% block content %}
+<h1>End User Details</h1>
+
+<p>Username: {{ enduser.username }}</p>
+<p>RFID Tag: {{ enduser.rfid_tag }}</p>
+<!-- Add more fields as per your model -->
+
+<!-- Include links to edit or delete the end user -->
+<a href="{% url 'PointOfSale:enduser_edit' enduser.id %}">Edit</a>
+<a href="{% url 'PointOfSale:enduser_delete' enduser.id %}">Delete</a>
+{% endblock %}
